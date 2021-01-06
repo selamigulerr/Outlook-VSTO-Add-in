@@ -42,6 +42,7 @@ namespace OutlookAddIn3
             this.login = this.Factory.CreateRibbonButton();
             this.group2 = this.Factory.CreateRibbonGroup();
             this.label1 = this.Factory.CreateRibbonLabel();
+            this.button1 = this.Factory.CreateRibbonButton();
             this.myApp.SuspendLayout();
             this.group1.SuspendLayout();
             this.group2.SuspendLayout();
@@ -77,6 +78,7 @@ namespace OutlookAddIn3
             // group2
             // 
             this.group2.Items.Add(this.label1);
+            this.group2.Items.Add(this.button1);
             this.group2.Label = "group2";
             this.group2.Name = "group2";
             // 
@@ -84,6 +86,12 @@ namespace OutlookAddIn3
             // 
             this.label1.Label = "label1";
             this.label1.Name = "label1";
+            // 
+            // button1
+            // 
+            this.button1.Label = "button1";
+            this.button1.Name = "button1";
+            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_Click);
             // 
             // Ribbon1
             // 
@@ -109,6 +117,7 @@ namespace OutlookAddIn3
         internal Microsoft.Office.Tools.Ribbon.RibbonButton login;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group2;
         internal Microsoft.Office.Tools.Ribbon.RibbonLabel label1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
     }
 
     partial class ThisRibbonCollection
