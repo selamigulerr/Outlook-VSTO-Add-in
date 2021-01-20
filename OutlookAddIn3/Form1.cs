@@ -18,10 +18,11 @@ namespace OutlookAddIn3
     {
         public static string username = string.Empty;
         public static string password = string.Empty;
+        public static string adress = string.Empty;
         public Form1()
 
         {
-
+           
 
             InitializeComponent();
         }
@@ -30,59 +31,53 @@ namespace OutlookAddIn3
         {
             username= textBox1.Text;
             password= textBox2.Text;
+            adress = textBox3.Text;
             var client = new RestClient("http://crmtest.mysoft.com.tr");
             client.Timeout = -1;
             RestRequest login = new RestRequest("/common/loginmobile", Method.POST);
             login.AddParameter("username", username);
             login.AddParameter("password", password);
             IRestResponse response = client.Execute(login);
+
             ResultModel<UserModel> model = null;
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 model = JsonConvert.DeserializeObject<ResultModel<UserModel>>(response.Content);
+                if (checkBox1.Checked == true)
+                {
+                    Properties.Settings.Default.username = textBox1.Text;
+                    Properties.Settings.Default.password = textBox2.Text;
+                    Properties.Settings.Default.adress = textBox3.Text;
+                    Properties.Settings.Default.Save();
+
+                }
+                else
+                {
+                    Properties.Settings.Default.username = "";
+                    Properties.Settings.Default.password = "";
+                    Properties.Settings.Default.adress = "";
+                    Properties.Settings.Default.Save();
+
+
+                }
             }
             if (model != null)
             {
                 if (model.succeed)
                 {
-                    MessageBox.Show(model.currentUser.Name);
+                    MessageBox.Show("Giriş Başarılı "+ model.currentUser.Name);
+                    Close();
                 }
                 else
                 {
-                    MessageBox.Show(model.message);
+                    MessageBox.Show("Hatalı Kullanıcı Adı yada Şifre  " + model.message);
                 }
             }
             else
             {
                 MessageBox.Show("Hata Alındı. Hata Kodu: "+ response.StatusCode.ToString());
             }
-            if (checkBox1.Checked == true)
-            {
-                Settings.Default.username = textBox1.Text;
-                Settings.Default.password =textBox2.Text;
-                Settings.Default.remember = true;
-
-            }
-            else  
-            {
-                Settings.Default.remember = false;
-
-
-            }
-
-            Settings.Default.Save();
-
-            /*Main m = new Main();
-            this.Hide();
-
-            SqlCommand sm = new SqlCommand("insert into users values('" + textBox1.Text + "','" + textBox2.Text + "')", data);
-
-            data.Open();
-            sm.ExecuteNonQuery();
-            data.Close();
-            MessageBox.Show("Kullanıcı Kaydedildi");*/
-
-
+           
         }
   
 
@@ -98,28 +93,24 @@ namespace OutlookAddIn3
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.ActiveControl = textBox1;
-            this.ControlBox = false;
-            if (Settings.Default.remember)
+            if(Properties.Settings.Default.username!=string.Empty)
             {
-                if (Settings.Default.username != string.Empty)
-                {
-                    textBox1.Text = Settings.Default.username;
-                }
-                if (Settings.Default.password != string.Empty)
-                {
-                    textBox2.Text = Settings.Default.password;
+                textBox1.Text = Properties.Settings.Default.username;
+                textBox2.Text = Properties.Settings.Default.password;
+                textBox3.Text = Properties.Settings.Default.adress;
 
-                }
-                Settings.Default.remember = true;
-            }
-            else
-            {
-                textBox1.Text = string.Empty;
-                textBox2.Text = string.Empty;
             }
             }
-        
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
  

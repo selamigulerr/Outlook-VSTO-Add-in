@@ -225,6 +225,7 @@
     <Compile Include="Form2.Designer.cs">
       <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\MailModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -284,6 +285,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\mysoft-logo.png" />
     <Content Include="Database1.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

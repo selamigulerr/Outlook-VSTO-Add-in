@@ -49,13 +49,13 @@ namespace OutlookAddIn3.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool remember {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string adress {
             get {
-                return ((bool)(this["remember"]));
+                return ((string)(this["adress"]));
             }
             set {
-                this["remember"] = value;
+                this["adress"] = value;
             }
         }
     }
